@@ -15,3 +15,28 @@ I used an ArrayList<String> to store the history of game updates. The addUpdate(
 Questions / Challenges
 
 One thing I had to think about was what should happen if getLatestUpdate() is called before any updates have been added. I decided to return "No updates available." instead of trying to access an empty list.
+
+----------------------------------------------------------------
+
+Phase 2 — The Infrastructure
+Journal Prompt
+
+Explain how these interfaces decouple the notification system from specific classes like SocialMediaBot.
+
+The Subject and Observer interfaces help decouple the notification system because they define what each object must be able to do without requiring the classes to know the details of each other.
+
+The Subject interface provides methods for registering, removing, and notifying observers. The Observer interface requires any observer to have an update() method.
+
+For example, the GameTicker will be able to work with any class that implements Observer. It does not need to specifically know that an observer is a SocialMediaBot. This means I could add a new type of notification later without changing the basic notification system.
+
+This makes the program more flexible and easier to maintain because the classes depend on interfaces instead of specific implementations.
+
+My Approach
+
+I created an Observer interface with an update() method. I also created a Subject interface with register(), remove(), and notifyObservers() methods.
+
+At this stage, the interfaces only define the required behavior. The actual implementation will be added to GameTicker in Phase 3.
+
+Questions / Challenges
+
+The main concept I had to understand was that an interface defines a contract rather than providing the actual implementation. The interfaces tell the classes what methods they must have, while the concrete classes will determine how those methods work.
