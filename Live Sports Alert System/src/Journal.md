@@ -65,3 +65,28 @@ I also modified addUpdate() so that observers are automatically notified wheneve
 Questions / Challenges
 
 The biggest concept I had to understand was why the GameTicker stores Observer objects instead of specific classes. Using the interface allows different types of observers to be stored in the same list and notified using the same update() method.
+
+-------------------------------------------------------------------------
+
+Phase 4 — The Concrete Observers
+Journal Prompt
+
+You’ll need to do something to get the data to these observers, which may include modifying the update() method. Are you using the Push or Pull method of data sending here?
+
+I am using the Pull method of data sending. When the GameTicker receives a new update, it calls the update() method on each registered observer. The ticker does not directly send the game update to the observer.
+
+Instead, each observer has a reference to the GameTicker and calls getLatestUpdate() inside its update() method. This means the observer pulls the current information from the ticker when it receives a notification.
+
+For example, the MobilePushNotification calls ticker.getLatestUpdate() and then prints the result as a push alert. The StadiumDisplay and SocialMediaBot do the same thing but format the information differently.
+
+My Approach
+
+I created three concrete observer classes: MobilePushNotification, StadiumDisplay, and SocialMediaBot.
+
+Each class implements the Observer interface and therefore must provide an update() method. Each observer receives a reference to the GameTicker through its constructor so it can retrieve the latest update.
+
+The three observers display the same game information in different ways. The mobile notification prints PUSH ALERT, the stadium display prints SCREEN UPDATE, and the social media bot prints TWEET followed by #GameDay.
+
+Questions / Challenges
+
+I had to understand the difference between notifying an observer and actually sending data to an observer. The GameTicker only calls update(), while the observers retrieve the information themselves. This helped me understand why this implementation is considered the Pull method.
