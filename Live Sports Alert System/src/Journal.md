@@ -40,3 +40,28 @@ At this stage, the interfaces only define the required behavior. The actual impl
 Questions / Challenges
 
 The main concept I had to understand was that an interface defines a contract rather than providing the actual implementation. The interfaces tell the classes what methods they must have, while the concrete classes will determine how those methods work.
+
+-------------------------------------------------------------------
+
+Phase 3 — The Concrete Subject
+Journal Prompt
+
+Describe the logic inside your notifyObservers loop. How does looping over the Observer interface type allow your ticker to broadcast updates without knowing what kind of displays are listening?
+
+The notifyObservers() method loops through the list of registered observers. For each observer, it calls the update() method defined by the Observer interface.
+
+The ticker does not need to know what specific type of object each observer is. It only needs to know that the object implements the Observer interface and therefore has an update() method.
+
+This allows the ticker to notify many different types of objects without being tightly coupled to them. For example, a mobile notification, stadium display, and social media bot can all receive the same notification even though they perform different actions.
+
+My Approach
+
+I modified GameTicker so that it implements the Subject interface. I added an ArrayList<Observer> to keep track of registered observers.
+
+I implemented register() to add observers, remove() to remove observers, and notifyObservers() to loop through all registered observers and call their update() methods.
+
+I also modified addUpdate() so that observers are automatically notified whenever a new game update is added.
+
+Questions / Challenges
+
+The biggest concept I had to understand was why the GameTicker stores Observer objects instead of specific classes. Using the interface allows different types of observers to be stored in the same list and notified using the same update() method.
